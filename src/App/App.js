@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.scss";
-import Episods from "./Episods/Episods";
+import Episods from "../Episods/Episods";
 
 function App() {
   return (
