@@ -1,7 +1,8 @@
-const initialState = {
-  openPage: ""
-};
+import { combineReducers } from "redux";
+import episodsReducer from "./episods";
+import settingsReducer from "./settings";
 
-export default (state = initialState) => {
-  return state;
-};
+export default combineReducers({
+  episods: episodsReducer,
+  settings: settingsReducer
+});

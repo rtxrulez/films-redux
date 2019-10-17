@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import "./App.scss";
 import Episods from "../Episods/Episods";
 
@@ -17,4 +18,8 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = () => {
+  return {};
+};
+
+export default connect()(App);
