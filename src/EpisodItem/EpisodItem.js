@@ -4,7 +4,6 @@ import "./EpisodItem.scss";
 
 class EpisodItem extends Component {
   render() {
-    console.log("ppp", this.props);
     const { name, pathImg, desc, rating } = this.props.item;
 
     return (

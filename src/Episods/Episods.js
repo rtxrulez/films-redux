@@ -2,16 +2,26 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./Episods.scss";
 import EpisodItem from "../EpisodItem/EpisodItem";
+import { filmsRequest } from "../store/actions/fetchFilms/fetchFilmsActions";
 
 class Episods extends Component {
+  componentDidMount() {
+    this.props.filmsRequest();
+  }
   render() {
-    const { episods } = this.props;
+    console.log("pr", this.props);
+    const { episodList, isFetching } = this.props.episods;
 
-    const EpisodsList = episods.map((v, k) => {
+    const EpisodsDom = episodList.map((v, k) => {
       return <EpisodItem item={v} key={k} />;
     });
 
-    return <div className="episods">{EpisodsList}</div>;
+    return (
+      <div className="episods">
+        {isFetching ? <div>Загрузка...</div> : null}
+        {EpisodsDom}
+      </div>
+    );
   }
 }
 
@@ -21,4 +31,11 @@ const mapStateToProps = store => {
   };
 };
 
-export default connect(mapStateToProps)(Episods);
+const mapDispatchToProps = {
+  filmsRequest: filmsRequest
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Episods);
