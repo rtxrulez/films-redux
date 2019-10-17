@@ -11,23 +11,35 @@ export const initialState = {
   episodList: [
     {
       name: "Название",
-      pathImg:
-        "http://static.tvmaze.com/uploads/images/original_untouched/124/311841.jpg",
+      pathImg: {
+        medium:
+          "http://static.tvmaze.com/uploads/images/medium_landscape/1/4394.jpg",
+        original:
+          "http://static.tvmaze.com/uploads/images/original_untouched/1/4394.jpg"
+      },
       desc: "Описание",
-      rating: "7"
+      date: "7"
     }
   ]
 };
 
 export default (state = initialState, action) => {
+  console.log("acc", action);
   switch (action.type) {
-    case FILMS_REQUEST: {
+    case FILMS_REQUEST:
       return {
         ...state,
         isFetching: true,
         isFetched: false
       };
-    }
+
+    case FILMS_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        isFetched: true,
+        episodList: [...action.payload]
+      };
   }
   return state;
 };

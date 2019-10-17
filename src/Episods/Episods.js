@@ -9,7 +9,6 @@ class Episods extends Component {
     this.props.filmsRequest();
   }
   render() {
-    console.log("pr", this.props);
     const { episodList, isFetching } = this.props.episods;
 
     const EpisodsDom = episodList.map((v, k) => {

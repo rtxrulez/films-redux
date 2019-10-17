@@ -4,7 +4,7 @@ import "./EpisodItem.scss";
 
 class EpisodItem extends Component {
   render() {
-    const { name, pathImg, desc, rating } = this.props.item;
+    const { name, pathImg, desc, date } = this.props.item;
 
     return (
       <div className="EpisodItem">
@@ -14,7 +14,7 @@ class EpisodItem extends Component {
         <div className="EpisodItem__content">
           <h3 className="EpisodItem__name">{name}</h3>
           <div className="EpisodItem__desc">{desc}</div>
-          <div className="EpisodItem__rating">{rating}</div>
+          <div className="EpisodItem__date">{date}</div>
         </div>
       </div>
     );
