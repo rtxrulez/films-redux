@@ -1,7 +1,10 @@
 import { createStore, compose, applyMiddleware } from "redux";
 import rootReducer from "./reducers/rootReducer";
 import { FILMS_REQUEST } from "./actions/fetchFilms/fetchFilmsType";
-import { filmsSuccess } from "./actions/fetchFilms/fetchFilmsActions";
+import {
+  filmsSuccess,
+  filmsFilure
+} from "./actions/fetchFilms/fetchFilmsActions";
 
 const fetchFilms = store => next => action => {
   if (action.type === FILMS_REQUEST) {
@@ -13,7 +16,6 @@ const fetchFilms = store => next => action => {
         return response.json();
       })
       .then(films => {
-        console.log("fff", films);
         const newArr = films.map((v, k) => {
           let path = "";
           if (v.image !== null && "medium" in v.image) {
@@ -27,6 +29,9 @@ const fetchFilms = store => next => action => {
           };
         });
         store.dispatch(filmsSuccess(newArr));
+      })
+      .catch(error => {
+        store.dispatch(filmsFilure(error));
       });
   }
   next(action);

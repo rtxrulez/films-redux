@@ -5,7 +5,6 @@ import "./EpisodItem.scss";
 class EpisodItem extends Component {
   render() {
     const { name, pathImg, desc, date } = this.props.item;
-
     return (
       <div className="EpisodItem">
         <div className="EpisodItem__photo">
@@ -13,7 +12,10 @@ class EpisodItem extends Component {
         </div>
         <div className="EpisodItem__content">
           <h3 className="EpisodItem__name">{name}</h3>
-          <div className="EpisodItem__desc">{desc}</div>
+          <div
+            dangerouslySetInnerHTML={{ __html: desc }}
+            className="EpisodItem__desc"
+          />
           <div className="EpisodItem__date">{date}</div>
         </div>
       </div>

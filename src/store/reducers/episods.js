@@ -9,17 +9,17 @@ export const initialState = {
   isFetched: false,
   error: null,
   episodList: [
-    {
-      name: "Название",
-      pathImg: {
-        medium:
-          "http://static.tvmaze.com/uploads/images/medium_landscape/1/4394.jpg",
-        original:
-          "http://static.tvmaze.com/uploads/images/original_untouched/1/4394.jpg"
-      },
-      desc: "Описание",
-      date: "7"
-    }
+    // {
+    //   name: "Название",
+    //   pathImg: {
+    //     medium:
+    //       "http://static.tvmaze.com/uploads/images/medium_landscape/1/4394.jpg",
+    //     original:
+    //       "http://static.tvmaze.com/uploads/images/original_untouched/1/4394.jpg"
+    //   },
+    //   desc: "Описание",
+    //   date: "7"
+    // }
   ]
 };
 
@@ -39,6 +39,14 @@ export default (state = initialState, action) => {
         isFetching: false,
         isFetched: true,
         episodList: [...action.payload]
+      };
+
+    case FILMS_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        isFetched: true,
+        error: action.error
       };
   }
   return state;

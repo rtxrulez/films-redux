@@ -9,7 +9,7 @@ class Episods extends Component {
     this.props.filmsRequest();
   }
   render() {
-    const { episodList, isFetching } = this.props.episods;
+    const { episodList, isFetching, isFetched, error } = this.props.episods;
 
     const EpisodsDom = episodList.map((v, k) => {
       return <EpisodItem item={v} key={k} />;
@@ -17,8 +17,13 @@ class Episods extends Component {
 
     return (
       <div className="episods">
-        {isFetching ? <div>Загрузка...</div> : null}
-        {EpisodsDom}
+        <div className="episods__header">
+          <div className="episods__filter"></div>
+          {isFetching ? <div>Загрузка...</div> : null}
+          {isFetched ? <div>Загрузка завершена!</div> : null}
+          {error ? <div>Ошибка загрузки {error.toString()}</div> : null}
+        </div>
+        <div className="episods__list">{EpisodsDom}</div>
       </div>
     );
   }
