@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import "./App.scss";
 import Episods from "../Episods/Episods";
 
-const Test = <div>Test</div>;
-
 function App() {
   return (
     <div className="App">
@@ -17,9 +15,5 @@ function App() {
     </div>
   );
 }
-
-const mapStateToProps = () => {
-  return {};
-};
 
 export default connect()(App);

@@ -1,10 +1,9 @@
 import { createStore, compose, applyMiddleware } from "redux";
 import rootReducer from "./reducers/rootReducer";
-import { FILMS_REQUEST, NAME_SORT } from "./actions/fetchFilms/fetchFilmsType";
+import { FILMS_REQUEST } from "./actions/fetchFilms/fetchFilmsType";
 import {
   filmsSuccess,
   filmsFilure,
-  replaceFilms,
   nameSort
 } from "./actions/fetchFilms/fetchFilmsActions";
 

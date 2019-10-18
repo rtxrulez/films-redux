@@ -34,20 +34,21 @@ class Episods extends Component {
     } = this.props.episods;
 
     const EpisodsDom = episodList.map((v, k) => {
-      return <EpisodItem item={v} key={k} />;
+      return <EpisodItem item={v} key={v.name + v.date} />;
     });
 
     return (
       <div className="episods">
         <div className="episods__header">
           <div className="episods__filter">
-            <a onClick={this.handleNameSort} href="#">
+            <button onClick={this.handleNameSort}>
               Название
-              {nameSort && !dateSort ? (nameSort == "up" ? "⇑" : "⇓") : ""}
-            </a>
-            <a onClick={this.handleDateSort} href="#">
-              Дата {dateSort && !nameSort ? (dateSort == "up" ? "⇑" : "⇓") : ""}
-            </a>
+              {nameSort && !dateSort ? (nameSort === "up" ? "⇑" : "⇓") : ""}
+            </button>
+            <button onClick={this.handleDateSort}>
+              Дата{" "}
+              {dateSort && !nameSort ? (dateSort === "up" ? "⇑" : "⇓") : ""}
+            </button>
           </div>
           {isFetching ? <div>Загрузка...</div> : null}
           {isFetched ? <div>Загрузка завершена!</div> : null}

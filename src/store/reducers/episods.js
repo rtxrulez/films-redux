@@ -77,6 +77,8 @@ export default (state = initialState, action) => {
         ...state,
         episodList: [...action.payload]
       };
+
+    default:
+      return state;
   }
-  return state;
 };

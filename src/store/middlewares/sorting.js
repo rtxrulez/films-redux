@@ -1,12 +1,10 @@
 import { DATE_SORT, NAME_SORT } from "../actions/fetchFilms/fetchFilmsType";
-import {
-  replaceFilms,
-  nameSort
-} from "../actions/fetchFilms/fetchFilmsActions";
+import { replaceFilms } from "../actions/fetchFilms/fetchFilmsActions";
 
 export default store => next => action => {
   const { nameSort, dateSort, episodList } = { ...store.getState().episods };
 
+  console.log("type", action.type, nameSort, dateSort);
   if (action.type === NAME_SORT) {
     if (nameSort === "down") {
       episodList.sort((a, b) => {
