@@ -2,7 +2,9 @@ import {
   FILMS_REQUEST,
   FILMS_SUCCESS,
   FILMS_FAILURE,
-  NAME_SORT
+  NAME_SORT,
+  DATE_SORT,
+  REPLACE_FILMS
 } from "./fetchFilmsType";
 
 export const filmsRequest = () => {
@@ -28,5 +30,18 @@ export const filmsFilure = error => {
 export const nameSort = () => {
   return {
     type: NAME_SORT
+  };
+};
+
+export const dateSort = () => {
+  return {
+    type: DATE_SORT
+  };
+};
+
+export const replaceFilms = payload => {
+  return {
+    type: REPLACE_FILMS,
+    payload
   };
 };

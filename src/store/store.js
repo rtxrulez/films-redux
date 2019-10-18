@@ -3,7 +3,9 @@ import rootReducer from "./reducers/rootReducer";
 import { FILMS_REQUEST, NAME_SORT } from "./actions/fetchFilms/fetchFilmsType";
 import {
   filmsSuccess,
-  filmsFilure
+  filmsFilure,
+  replaceFilms,
+  nameSort
 } from "./actions/fetchFilms/fetchFilmsActions";
 
 const fetchFilms = store => next => action => {
@@ -29,6 +31,7 @@ const fetchFilms = store => next => action => {
           };
         });
         store.dispatch(filmsSuccess(newArr));
+        store.dispatch(nameSort());
       })
       .catch(error => {
         store.dispatch(filmsFilure(error));
@@ -43,8 +46,37 @@ const logger = store => next => action => {
 };
 
 const sorting = store => next => action => {
+  const { nameSort, dateSort, episodList } = { ...store.getState().episods };
+
   if (action.type === NAME_SORT) {
-    console.log("name", store);
+    if (nameSort === "down") {
+      episodList.sort((a, b) => {
+        let nameA = a.name.toLowerCase();
+        let nameB = b.name.toLowerCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      });
+      store.dispatch(replaceFilms(episodList));
+    }
+    if (nameSort === "up") {
+      episodList.sort((a, b) => {
+        let nameA = a.name.toLowerCase();
+        let nameB = b.name.toLowerCase();
+        if (nameA > nameB) {
+          return -1;
+        }
+        if (nameA < nameB) {
+          return 1;
+        }
+        return 0;
+      });
+      store.dispatch(replaceFilms(episodList));
+    }
   }
   return next(action);
 };

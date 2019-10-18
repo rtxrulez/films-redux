@@ -2,7 +2,9 @@ import {
   FILMS_REQUEST,
   FILMS_SUCCESS,
   FILMS_FAILURE,
-  NAME_SORT
+  NAME_SORT,
+  DATE_SORT,
+  REPLACE_FILMS
 } from "../actions/fetchFilms/fetchFilmsType";
 
 export const initialState = {
@@ -48,7 +50,6 @@ export default (state = initialState, action) => {
       };
 
     case NAME_SORT:
-      console.log("app", action);
       return {
         ...state,
         dateSort: false,
@@ -57,6 +58,24 @@ export default (state = initialState, action) => {
             ? "up"
             : "down"
           : "up"
+      };
+
+    case DATE_SORT:
+      return {
+        ...state,
+        dateSort: false,
+        nameSort: state.nameSort
+          ? state.nameSort === "down"
+            ? "up"
+            : "down"
+          : "up"
+      };
+
+    case REPLACE_FILMS:
+      console.log("aaaa", action);
+      return {
+        ...state,
+        episodList: [...action.payload]
       };
   }
   return state;
