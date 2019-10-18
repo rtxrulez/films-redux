@@ -1,4 +1,9 @@
-import { FILMS_REQUEST, FILMS_SUCCESS, FILMS_FAILURE } from "./fetchFilmsType";
+import {
+  FILMS_REQUEST,
+  FILMS_SUCCESS,
+  FILMS_FAILURE,
+  NAME_SORT
+} from "./fetchFilmsType";
 
 export const filmsRequest = () => {
   return {
@@ -17,5 +22,11 @@ export const filmsFilure = error => {
   return {
     type: FILMS_FAILURE,
     error
+  };
+};
+
+export const nameSort = () => {
+  return {
+    type: NAME_SORT
   };
 };

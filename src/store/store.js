@@ -1,6 +1,6 @@
 import { createStore, compose, applyMiddleware } from "redux";
 import rootReducer from "./reducers/rootReducer";
-import { FILMS_REQUEST } from "./actions/fetchFilms/fetchFilmsType";
+import { FILMS_REQUEST, NAME_SORT } from "./actions/fetchFilms/fetchFilmsType";
 import {
   filmsSuccess,
   filmsFilure
@@ -42,11 +42,18 @@ const logger = store => next => action => {
   return next(action);
 };
 
+const sorting = store => next => action => {
+  if (action.type === NAME_SORT) {
+    console.log("name", store);
+  }
+  return next(action);
+};
+
 export default createStore(
   rootReducer,
   undefined,
   compose(
-    applyMiddleware(fetchFilms, logger),
+    applyMiddleware(fetchFilms, sorting, logger),
     window.devToolsExtension ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
   )
 );
