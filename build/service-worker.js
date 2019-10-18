@@ -15,7 +15,9 @@ importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js"
 );
 
-importScripts("/precache-manifest.ba3f49e2eeebae8b34e22acb8382eae0.js");
+importScripts(
+  "/films-redux/build/precache-manifest.e44bdad0da68dc8e3032f166bba24493.js"
+);
 
 self.addEventListener("message", event => {
   if (event.data && event.data.type === "SKIP_WAITING") {
@@ -34,7 +36,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 workbox.routing.registerNavigationRoute(
-  workbox.precaching.getCacheKeyForURL("/index.html"),
+  workbox.precaching.getCacheKeyForURL("/films-redux/build/index.html"),
   {
     blacklist: [/^\/_/, /\/[^\/?]+\.[^\/]+$/]
   }
