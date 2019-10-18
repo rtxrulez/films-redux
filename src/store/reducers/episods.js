@@ -63,9 +63,9 @@ export default (state = initialState, action) => {
     case DATE_SORT:
       return {
         ...state,
-        dateSort: false,
-        nameSort: state.nameSort
-          ? state.nameSort === "down"
+        nameSort: false,
+        dateSort: state.dateSort
+          ? state.dateSort === "down"
             ? "up"
             : "down"
           : "up"

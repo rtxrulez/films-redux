@@ -8,6 +8,8 @@ import {
   nameSort
 } from "./actions/fetchFilms/fetchFilmsActions";
 
+import sorting from "./middlewares/sorting";
+
 const fetchFilms = store => next => action => {
   if (action.type === FILMS_REQUEST) {
     fetch("http://api.tvmaze.com/shows/1/episodes?specials=1", {
@@ -42,42 +44,6 @@ const fetchFilms = store => next => action => {
 
 const logger = store => next => action => {
   console.log("logger: ", action.type);
-  return next(action);
-};
-
-const sorting = store => next => action => {
-  const { nameSort, dateSort, episodList } = { ...store.getState().episods };
-
-  if (action.type === NAME_SORT) {
-    if (nameSort === "down") {
-      episodList.sort((a, b) => {
-        let nameA = a.name.toLowerCase();
-        let nameB = b.name.toLowerCase();
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-        return 0;
-      });
-      store.dispatch(replaceFilms(episodList));
-    }
-    if (nameSort === "up") {
-      episodList.sort((a, b) => {
-        let nameA = a.name.toLowerCase();
-        let nameB = b.name.toLowerCase();
-        if (nameA > nameB) {
-          return -1;
-        }
-        if (nameA < nameB) {
-          return 1;
-        }
-        return 0;
-      });
-      store.dispatch(replaceFilms(episodList));
-    }
-  }
   return next(action);
 };
 

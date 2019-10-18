@@ -4,7 +4,8 @@ import "./Episods.scss";
 import EpisodItem from "../EpisodItem/EpisodItem";
 import {
   filmsRequest,
-  nameSort
+  nameSort,
+  dateSort
 } from "../store/actions/fetchFilms/fetchFilmsActions";
 
 class Episods extends Component {
@@ -12,9 +13,14 @@ class Episods extends Component {
     this.props.filmsRequest();
   }
 
-  handleNameSort = e => {
+  handleNameSort = () => {
     const { nameSort } = this.props;
     nameSort();
+  };
+
+  handleDateSort = () => {
+    const { dateSort } = this.props;
+    dateSort();
   };
 
   render() {
@@ -39,7 +45,7 @@ class Episods extends Component {
               Название
               {nameSort && !dateSort ? (nameSort == "up" ? "⇑" : "⇓") : ""}
             </a>
-            <a href="#">
+            <a onClick={this.handleDateSort} href="#">
               Дата {dateSort && !nameSort ? (dateSort == "up" ? "⇑" : "⇓") : ""}
             </a>
           </div>
@@ -61,7 +67,8 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = {
   filmsRequest: filmsRequest,
-  nameSort: nameSort
+  nameSort: nameSort,
+  dateSort: dateSort
 };
 
 export default connect(
