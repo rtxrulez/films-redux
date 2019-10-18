@@ -37,11 +37,16 @@ const fetchFilms = store => next => action => {
   next(action);
 };
 
+const logger = store => next => action => {
+  console.log("logger: ", action.type);
+  return next(action);
+};
+
 export default createStore(
   rootReducer,
   undefined,
   compose(
-    applyMiddleware(fetchFilms),
+    applyMiddleware(fetchFilms, logger),
     window.devToolsExtension ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
   )
 );

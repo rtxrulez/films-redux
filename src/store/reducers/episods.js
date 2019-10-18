@@ -24,7 +24,6 @@ export const initialState = {
 };
 
 export default (state = initialState, action) => {
-  console.log("acc", action);
   switch (action.type) {
     case FILMS_REQUEST:
       return {
