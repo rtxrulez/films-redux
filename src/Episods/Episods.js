@@ -10,7 +10,7 @@ import {
 
 class Episods extends Component {
   componentDidMount() {
-    this.props.filmsRequest();
+    // this.props.filmsRequest();
   }
 
   handleNameSort = () => {

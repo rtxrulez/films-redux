@@ -1,56 +1,27 @@
 import { createStore, compose, applyMiddleware } from "redux";
+import createSagaMiddleware from "redux-saga";
 import rootReducer from "./reducers/rootReducer";
-import { FILMS_REQUEST } from "./actions/fetchFilms/fetchFilmsType";
-import {
-  filmsSuccess,
-  filmsFilure,
-  nameSort
-} from "./actions/fetchFilms/fetchFilmsActions";
 
+import rootSaga from "./sagas/sagas";
 import sorting from "./middlewares/sorting";
-
-const fetchFilms = store => next => action => {
-  if (action.type === FILMS_REQUEST) {
-    fetch("http://api.tvmaze.com/shows/1/episodes?specials=1", {
-      method: "GET",
-      mode: "cors"
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(films => {
-        const newArr = films.map((v, k) => {
-          let path = "";
-          if (v.image !== null && "medium" in v.image) {
-            path = v.image["medium"];
-          }
-          return {
-            name: v.name,
-            date: v.airdate,
-            desc: v.summary,
-            pathImg: path
-          };
-        });
-        store.dispatch(filmsSuccess(newArr));
-        store.dispatch(nameSort());
-      })
-      .catch(error => {
-        store.dispatch(filmsFilure(error));
-      });
-  }
-  next(action);
-};
+import fetchFilms from "./fetch/fetchFilms";
 
 const logger = store => next => action => {
   console.log("logger: ", action.type);
   return next(action);
 };
 
-export default createStore(
+const sagaMiddleware = createSagaMiddleware();
+
+const newStore = createStore(
   rootReducer,
   undefined,
   compose(
-    applyMiddleware(fetchFilms, sorting, logger),
+    applyMiddleware(fetchFilms, sorting, sagaMiddleware, logger),
     window.devToolsExtension ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
   )
 );
+
+sagaMiddleware.run(rootSaga);
+
+export default newStore;
