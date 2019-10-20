@@ -1,5 +1,17 @@
-import { select, put, takeEvery, all, call } from "@redux-saga/core/effects";
-import { filmsRequest } from "../actions/fetchFilms/fetchFilmsActions";
+import {
+  select,
+  put,
+  takeEvery,
+  all,
+  call,
+  takeLatest
+} from "@redux-saga/core/effects";
+import {
+  filmsRequest,
+  filmsSuccess,
+  filmsFilure
+} from "../actions/fetchFilms/fetchFilmsActions";
+import API from "../API/api";
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -7,26 +19,33 @@ export function* helloSaga() {
   console.log("Hello Saga!", filmsRequest());
 }
 
-// export function* loadFilms() {
-//   console.log("load");
-//   yield call(
-//     fetch("http://api.tvmaze.com/shows/1/episodes?specials=1", {
-//       method: "GET",
-//       mode: "cors"
-//     })
-//   );
-//   yield put(filmsRequest());
-// }
+function* loadFilms(action) {
+  try {
+    const films = yield call(API.fetchFilms, action.payload);
 
-// // logger
-// export function* watchLogger() {
-//   yield takeEvery("*", function* logger(action) {
-//     const state = yield select();
+    const newArr = films.map((v, k) => {
+      let path = "";
+      if (v.image !== null && "medium" in v.image) {
+        path = v.image["medium"];
+      }
+      return {
+        name: v.name,
+        date: v.airdate,
+        desc: v.summary,
+        pathImg: path
+      };
+    });
 
-//     console.log("Saga Action: ", action);
-//   });
-// }
+    yield put(filmsSuccess(newArr));
+  } catch (error) {
+    yield put(filmsFilure(error));
+  }
+}
+
+function* loadFilmsWatch() {
+  yield takeLatest(filmsRequest, loadFilms);
+}
 
 export default function* rootSaga() {
-  yield all([helloSaga()]);
+  yield all([helloSaga(), loadFilmsWatch()]);
 }
