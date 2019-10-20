@@ -6,7 +6,9 @@ import {
 } from "../actions/fetchFilms/fetchFilmsActions";
 
 export default store => next => action => {
+  console.log(action.type === FILMS_REQUEST);
   if (action.type === FILMS_REQUEST) {
+    console.log("ac", action);
     fetch("http://api.tvmaze.com/shows/1/episodes?specials=1", {
       method: "GET",
       mode: "cors"
@@ -29,6 +31,7 @@ export default store => next => action => {
         });
         store.dispatch(filmsSuccess(newArr));
         store.dispatch(nameSort());
+        console.log("films");
       })
       .catch(error => {
         store.dispatch(filmsFilure(error));

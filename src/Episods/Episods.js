@@ -10,7 +10,7 @@ import {
 
 class Episods extends Component {
   componentDidMount() {
-    // this.props.filmsRequest();
+    this.props.filmsRequest();
   }
 
   handleNameSort = () => {
@@ -41,14 +41,14 @@ class Episods extends Component {
       <div className="episods">
         <div className="episods__header">
           <div className="episods__filter">
-            <button onClick={this.handleNameSort}>
+            <span onClick={this.handleNameSort}>
               Название
               {nameSort && !dateSort ? (nameSort === "up" ? "⇑" : "⇓") : ""}
-            </button>
-            <button onClick={this.handleDateSort}>
+            </span>
+            <span onClick={this.handleDateSort}>
               Дата{" "}
               {dateSort && !nameSort ? (dateSort === "up" ? "⇑" : "⇓") : ""}
-            </button>
+            </span>
           </div>
           {isFetching ? <div>Загрузка...</div> : null}
           {isFetched ? <div>Загрузка завершена!</div> : null}

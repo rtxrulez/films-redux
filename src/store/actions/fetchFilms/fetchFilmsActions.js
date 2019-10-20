@@ -1,3 +1,5 @@
+import { createAction } from "redux-actions";
+
 import {
   FILMS_REQUEST,
   FILMS_SUCCESS,
