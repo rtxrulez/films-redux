@@ -7,6 +7,17 @@ import {
   REPLACE_FILMS
 } from "../actions/fetchFilms/fetchFilmsType";
 
+import {
+  filmsRequest,
+  filmsSuccess,
+  filmsFilure,
+  dateSort,
+  nameSort,
+  replaceFilms
+} from "../actions/fetchFilms/fetchFilmsActions";
+
+console.log("fffff", filmsSuccess().type);
+
 export const initialState = {
   isFetching: false,
   isFetched: false,
@@ -26,14 +37,14 @@ export const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case FILMS_REQUEST:
+    case filmsRequest().type:
       return {
         ...state,
         isFetching: true,
         isFetched: false
       };
 
-    case FILMS_SUCCESS:
+    case filmsSuccess().type:
       return {
         ...state,
         isFetching: false,
@@ -41,7 +52,7 @@ export default (state = initialState, action) => {
         episodList: [...action.payload]
       };
 
-    case FILMS_FAILURE:
+    case filmsFilure().type:
       return {
         ...state,
         isFetching: false,
@@ -49,7 +60,7 @@ export default (state = initialState, action) => {
         error: action.error
       };
 
-    case NAME_SORT:
+    case nameSort().type:
       return {
         ...state,
         dateSort: false,
@@ -60,7 +71,7 @@ export default (state = initialState, action) => {
           : "up"
       };
 
-    case DATE_SORT:
+    case dateSort().type:
       return {
         ...state,
         nameSort: false,
@@ -71,7 +82,7 @@ export default (state = initialState, action) => {
           : "up"
       };
 
-    case REPLACE_FILMS:
+    case replaceFilms().type:
       console.log("aaaa", action);
       return {
         ...state,
