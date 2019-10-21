@@ -8,18 +8,19 @@ export default store => next => action => {
     episodList.sort((a, b) => {
       let nameA = a.name.toLowerCase();
       let nameB = b.name.toLowerCase();
-
+      let result = 0;
       if (nameA < nameB) {
-        return -1;
+        result = -1;
       }
       if (nameA > nameB) {
-        return 1;
+        result = 1;
       }
-      return 0;
+      if (nameSort === "up") {
+        result = result * -1;
+      }
+
+      return result;
     });
-    if (nameSort === "up") {
-      episodList.reverse();
-    }
     store.dispatch(replaceFilms(episodList));
   }
 
@@ -27,17 +28,20 @@ export default store => next => action => {
     episodList.sort((a, b) => {
       let dateA = new Date(a.date);
       let dateB = new Date(b.date);
+      let result = 0;
+
       if (dateA < dateB) {
-        return -1;
+        result = -1;
       }
       if (dateA > dateB) {
-        return 1;
+        result = 1;
       }
-      return 0;
+
+      if (dateSort === "up") {
+        result = result * -1;
+      }
+      return result;
     });
-    if (dateSort === "up") {
-      episodList.reverse();
-    }
     store.dispatch(replaceFilms(episodList));
   }
 

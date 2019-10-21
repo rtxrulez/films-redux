@@ -2,6 +2,7 @@ import {
   select,
   put,
   takeEvery,
+  take,
   all,
   call,
   takeLatest
@@ -39,6 +40,12 @@ function* loadFilms(action) {
     yield put(filmsSuccess(newArr));
   } catch (error) {
     yield put(filmsFilure(error));
+  }
+}
+
+function* sortingCount() {
+  for (let i = 1; i < 3; i++) {
+    const action = take("REPLACE_");
   }
 }
 
