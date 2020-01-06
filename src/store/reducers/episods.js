@@ -16,8 +16,6 @@ import {
   replaceFilms
 } from "../actions/fetchFilms/fetchFilmsActions";
 
-console.log("fffff", filmsSuccess().type);
-
 export const initialState = {
   isFetching: false,
   isFetched: false,
